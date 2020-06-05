@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+    <div>
+        <h2>Hasta Durum</h2>
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Hasta Nabız Grafiği
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-2" style="margin-top:-20px;margin-right:-25px"> <p id="yazitahtasi" style="font-size:125px"></div>
+                <div class="col-md-3"> <p class="text-danger" style="font-size:100px">Bpm</p></div>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Son güncelleme şuan.</div>
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Adım Bilgisi
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-3" style="margin-top:-20px;margin-right:-10px;margin-left:auto;"> <p id="adim" style="font-size:125px"></div>
+                <div class="col-md-6"> <p class="text-info" style="font-size:50px ; margin-top:50px">Adim Sayisi</p></div>
+
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Son güncelleme şuan.</div>
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Mesafe
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-3" style="margin-top:-20px;margin-right:-10px;margin-left:auto;"> <p id="mesafe" style="font-size:125px"></div>
+                <div class="col-md-6"> <p class="text-success" style="font-size:50px ; margin-top:50px">M</p></div>
+
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Son güncelleme şuan.</div>
+
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Yakılan Kalori
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-3" style="margin-top:-20px;margin-right:-80px;margin-left:auto;"> <p id="kalori" style="font-size:125px"></div>
+                <div class="col-md-6"> <p class="text-warning" style="font-size:50px ; margin-top:50px">Kcal</p></div>
+
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Son güncelleme şuan.</div>
+
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Hasta Durumu
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-12"><p id="durum" class="text-success" style="font-size:50px ; margin-top:20px; margin-left:425px;"></p></div>
+
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Son güncelleme şuan.</div>
+
+    </div>
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+@Scripts.Render("~/Scripts/app.js")
+<script>
+    var db = firebase.firestore();
+    var docRef = db.collection("Hasta").doc("SF");
+    var doc = docRef.get();
+
+
+
+    var ref = firebase.database().ref("/hastaDurum/Yusuf");
+    var result = document.getElementById("yazitahtasi");
+    
+    var adimsayisi = document.getElementById("adim");
+    var mesafe = document.getElementById("mesafe");
+    var ykalori = document.getElementById("kalori");
+
+    var durum = document.getElementById("durum");
+
+    ref.on("value", function (snapshot) {
+        result.innerHTML = JSON.stringify(snapshot.val().kalpRitmi, null, 2).slice(1, -1);
+        adim.innerHTML = JSON.stringify(snapshot.val().adimSayisi, null, 2).slice(1, -1);
+        mesafe.innerHTML = JSON.stringify(snapshot.val().mesafe, null, 2).slice(1, -1);
+        ykalori.innerHTML = JSON.stringify(snapshot.val().callories, null, 2).slice(1, -1);
+        if (Number(result.innerHTML) < 200)
+            durum.innerHTML = "Durum Stabil";
+        else
+            durum.innerHTML = "Durum Kritik";
+        
+    });
+</script>
