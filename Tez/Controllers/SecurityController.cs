@@ -22,15 +22,10 @@ namespace Tez.Controllers
             return Redirect("/Home/Index");
         }
         [HttpPost]
-        public ActionResult Login(User model)
-        {
-            var u = UserInit.Init().FirstOrDefault(x => x.userName == model.userName && x.password == model.password);
-            if (u != null)
-            {
-                FormsAuthentication.SetAuthCookie(u.userName, true);
+        public ActionResult Login(string username)
+        {   
+                FormsAuthentication.SetAuthCookie(username, true);
                 return Redirect("/Home/Index");
-            }
-            return View();
         }
         public ActionResult Logout()
         {

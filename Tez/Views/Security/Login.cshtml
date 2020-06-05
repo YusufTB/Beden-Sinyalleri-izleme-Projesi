@@ -45,7 +45,7 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="Login" method="post">
+                        <form id="form-name" class="form" method="post">
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
@@ -56,7 +56,7 @@
                                 <input type="text" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                              <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div>
                             <div id="register-link" class="text-right">
                                 <br />
@@ -68,5 +68,54 @@
             </div>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyA-6vQfmode3DRV8YHz-GcMF8roWt3oZ_Y",
+            authDomain: "alzheimertakip-e1d1e.firebaseapp.com",
+            databaseURL: "https://alzheimertakip-e1d1e.firebaseio.com",
+            projectId: "alzheimertakip-e1d1e",
+            storageBucket: "alzheimertakip-e1d1e.appspot.com",
+            messagingSenderId: "1023651702254",
+            appId: "1:1023651702254:web:62f7e12aef680a5e5b5aff"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+
+
+
+
+
+        var form = document.getElementById("form-name");
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            var username = form.username.value;
+            var password = form.password.value;
+
+
+            var docRef = db.collection("Hasta").doc(username);
+            docRef.get().then(function (doc) {
+                if (doc.exists) {
+                    
+                        window.location = 'https://localhost:44365/Security/Login?username=' + username;
+                 
+                } else {
+                    // doc.data() will be undefined in this case
+                    window.alert("kullanıcı adı veya şifre yanlış");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
+
+
+        };
+    </script>
+
 </body>
 </html>
