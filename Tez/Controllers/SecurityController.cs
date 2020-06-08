@@ -24,21 +24,7 @@ namespace Tez.Controllers
 
 
 
-        async void loginDataControl(DocumentReference docRef, string password)
-        {
-       
-                Dictionary<string, object> user = snapshot.ToDictionary();
-                if (password == user.password)
-                login = 1
-
-                else
-                login = 0;
-
-            }
-            else
-                login = 0;
-     
-        }
+   
 
 
         [HttpPost]
@@ -64,7 +50,7 @@ namespace Tez.Controllers
             if (snapshot.Exists)
             {
                 Dictionary<string, object> user = snapshot.ToDictionary();
-                if (password == user.password)
+                if (password == user["password"])
                 {
                 ViewBag.Login = "True";
                 return Redirect("/Home/Index");
