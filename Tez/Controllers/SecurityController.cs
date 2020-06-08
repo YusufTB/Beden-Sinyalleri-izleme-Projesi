@@ -13,11 +13,35 @@ namespace Tez.Controllers
     public class SecurityController : Controller
     {
         FirestoreDb db;
-
+        int login;
         public ActionResult Login()
         {
             return View();
         }
+
+
+
+
+
+
+        async void loginDataControl(DocumentReference docRef, string password)
+        {
+        DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> user = snapshot.ToDictionary();
+                if (password == user.password)
+                login = 1
+
+                else
+                login = 0;
+
+            }
+            else
+                login = 0;
+     
+        }
+
 
         [HttpPost]
         public ActionResult Login(string username,string password)
@@ -38,27 +62,24 @@ namespace Tez.Controllers
 
 
             DocumentReference docRef = db.Collection("Hasta").Document(username);
-            DocumentSnapshot snapshot =docRef.GetSnapshotAsync();
-            if (snapshot.Exists)
+            loginDataControl(docRef);
+            
+            
+            
+            
+            if(login == 1)
             {
-                Dictionary<string, object> user = snapshot.ToDictionary();
-                if (password == user.password)
-                {
                 ViewBag.Login = "True";
                 return Redirect("/Home/Index");
-                }
-                else
-                {
+            }
+            
+            
+            else
+            {
                 ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
                 return Redirect("/Security/Login");
                 }
-            }
-            else
-            {
-            ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
-                return Redirect("/Security/Login");
-            }
-
+            
 
             //if (username == null)
             //{
