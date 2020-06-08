@@ -12,19 +12,24 @@ namespace Tez.Controllers
 {
     public class SecurityController : Controller
     {
-        FirestoreDb db = FirestoreDb.Create("alzheimertakip-e1d1e");
+        FirestoreDb db;
 
-        DocumentReference docRef = db.Collection("users").Document("alovelace");
-        Dictionary<string, object> user = new Dictionary<string, object>
-        {
-            { "First", "Ada" },
-            { "Last", "Lovelace" },
-            { "Born", 1815 }
-        };
-        await docRef.SetAsync(user);
-        // GET: Security
+        
         public ActionResult Login(string username)
         {
+            db = FirestoreDb.Create("alzheimertakip-e1d1e")
+            
+            DocumentReference docRef = db.Collection("users").Document("alovelace");
+            Dictionary<string, object> user = new Dictionary<string, object>
+            {
+                { "First", "Ada" },
+                { "Last", "Lovelace" },
+                { "Born", 1815 }
+            };
+            await docRef.SetAsync(user);
+            // GET: Security
+            
+        
             if (username == null)
             {
                 return View();
