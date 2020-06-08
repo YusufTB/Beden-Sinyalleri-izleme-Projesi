@@ -35,6 +35,31 @@ namespace Tez.Controllers
             // GET: Security
             return View();
 
+
+
+            DocumentReference docRef = db.Collection("Hasta").Document(username);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            if (snapshot.Exists)
+            {
+                Dictionary<string, object> user = snapshot.ToDictionary();
+                if (password == user.password)
+                {
+                ViewBag.Login = "True";
+                return Redirect("/Home/Index");
+                }
+                else
+                {
+                ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                return Redirect("/Security/Login");
+                }
+            }
+            else
+            {
+            ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                return Redirect("/Security/Login");
+            }
+
+
             //if (username == null)
             //{
             //    return View();
