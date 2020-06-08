@@ -24,21 +24,21 @@ namespace Tez.Controllers
         {
             db = FirestoreDb.Create("alzheimertakip-e1d1e");
             
-            DocumentReference docRef = db.Collection("users").Document("alovelace");
-            Dictionary<string, object> user = new Dictionary<string, object>
-            {
-                { "First", "Ada" },
-                { "Last", "Lovelace" },
-                { "Born", 1815 }
-            };
-            docRef.SetAsync(user);
-            // GET: Security
-            return View();
+            //DocumentReference docRef = db.Collection("users").Document("alovelace");
+            //Dictionary<string, object> user = new Dictionary<string, object>
+            //{
+            //    { "First", "Ada" },
+            //    { "Last", "Lovelace" },
+            //    { "Born", 1815 }
+            //};
+            //docRef.SetAsync(user);
+            //// GET: Security
+            
 
 
 
             DocumentReference docRef = db.Collection("Hasta").Document(username);
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            DocumentSnapshot snapshot =docRef.GetSnapshotAsync();
             if (snapshot.Exists)
             {
                 Dictionary<string, object> user = snapshot.ToDictionary();
