@@ -14,10 +14,15 @@ namespace Tez.Controllers
     {
         FirestoreDb db;
 
-        
-        public ActionResult Login(string username)
+        public ActionResult Login()
         {
-            db = FirestoreDb.Create("alzheimertakip-e1d1e")
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string username,string password)
+        {
+            db = FirestoreDb.Create("alzheimertakip-e1d1e");
             
             DocumentReference docRef = db.Collection("users").Document("alovelace");
             Dictionary<string, object> user = new Dictionary<string, object>
@@ -26,19 +31,19 @@ namespace Tez.Controllers
                 { "Last", "Lovelace" },
                 { "Born", 1815 }
             };
-            await docRef.SetAsync(user);
+            docRef.SetAsync(user);
             // GET: Security
-            
-        
-            if (username == null)
-            {
-                return View();
-            }
-            else
-            {
-                FormsAuthentication.SetAuthCookie(username, true);
-                return Redirect("/Home/Index");
-            }
+            return View();
+
+            //if (username == null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    FormsAuthentication.SetAuthCookie(username, true);
+            //    return Redirect("/Home/Index");
+            //}
             //if (String.IsNullOrEmpty(HttpContext.User.Identity.Name))
             //{
             //    FormsAuthentication.SignOut();
