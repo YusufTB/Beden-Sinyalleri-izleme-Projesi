@@ -12,20 +12,23 @@ namespace Tez.Controllers
     public class SecurityController : Controller
     {
         // GET: Security
-        public ActionResult Login()
+        public ActionResult Login(string username)
         {
-            if (String.IsNullOrEmpty(HttpContext.User.Identity.Name))
+            if (username == null)
             {
-                FormsAuthentication.SignOut();
                 return View();
             }
-            return Redirect("/Home/Index");
-        }
-        [HttpPost]
-        public ActionResult Login(string username)
-        {   
+            else
+            {
                 FormsAuthentication.SetAuthCookie(username, true);
                 return Redirect("/Home/Index");
+            }
+            //if (String.IsNullOrEmpty(HttpContext.User.Identity.Name))
+            //{
+            //    FormsAuthentication.SignOut();
+            //    return View();
+            //}
+            //return Redirect("/Home/Index");
         }
         public ActionResult Logout()
         {
