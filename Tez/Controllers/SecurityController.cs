@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -24,30 +25,14 @@ namespace Tez.Controllers
 
 
 
-        async void loginDataControl(DocumentReference docRef, string password)
-        {
-        DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-            if (snapshot.Exists)
-            {
-                Dictionary<string, object> user = snapshot.ToDictionary();
-                if (password == user.password)
-                login = 1
 
-                else
-                login = 0;
-
-            }
-            else
-                login = 0;
-     
-        }
 
 
         [HttpPost]
-        public ActionResult Login(string username,string password)
+        public async Task<ActionResult> Login(string username, string password)
         {
             db = FirestoreDb.Create("alzheimertakip-e1d1e");
-            
+
             //DocumentReference docRef = db.Collection("users").Document("alovelace");
             //Dictionary<string, object> user = new Dictionary<string, object>
             //{
@@ -57,29 +42,36 @@ namespace Tez.Controllers
             //};
             //docRef.SetAsync(user);
             //// GET: Security
-            
+
 
 
 
             DocumentReference docRef = db.Collection("Hasta").Document(username);
-            loginDataControl(docRef);
-            
-            
-            
-            
-            if(login == 1)
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            if (snapshot.Exists)
             {
-                ViewBag.Login = "True";
-                return Redirect("/Home/Index");
+                Dictionary<string, object> user = snapshot.ToDictionary();
+                if (password == user["password"].ToString())
+                {
+                    ViewBag.Login = "True";
+                    FormsAuthentication.SetAuthCookie(username, true);
+                    if (user["role"].ToString() == "A")
+                        return Redirect("/Home/Admin");
+                    else
+                        return Redirect("/Home/Index");
+                }
+                else
+                {
+                    ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                    return Redirect("/Security/Login");
+                }
             }
-            
-            
             else
             {
                 ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
                 return Redirect("/Security/Login");
-                }
-            
+            }
+
 
             //if (username == null)
             //{
