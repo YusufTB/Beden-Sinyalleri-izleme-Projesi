@@ -25,11 +25,9 @@ namespace Tez.Controllers
 
 
 
-
-
-
         [HttpPost]
         public async Task<ActionResult> Login(string username, string password)
+
         {
             db = FirestoreDb.Create("alzheimertakip-e1d1e");
 
@@ -51,6 +49,7 @@ namespace Tez.Controllers
             if (snapshot.Exists)
             {
                 Dictionary<string, object> user = snapshot.ToDictionary();
+
                 if (password == user["password"].ToString())
                 {
                     ViewBag.Login = "True";
