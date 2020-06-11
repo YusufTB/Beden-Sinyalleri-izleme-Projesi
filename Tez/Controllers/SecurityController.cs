@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -24,14 +25,12 @@ namespace Tez.Controllers
 
 
 
-   
-
-
         [HttpPost]
-        public async Task <ActionResult> Login(string username,string password)
+        public async Task<ActionResult> Login(string username, string password)
+
         {
             db = FirestoreDb.Create("alzheimertakip-e1d1e");
-            
+
             //DocumentReference docRef = db.Collection("users").Document("alovelace");
             //Dictionary<string, object> user = new Dictionary<string, object>
             //{
@@ -41,7 +40,7 @@ namespace Tez.Controllers
             //};
             //docRef.SetAsync(user);
             //// GET: Security
-            
+
 
 
 
@@ -50,23 +49,28 @@ namespace Tez.Controllers
             if (snapshot.Exists)
             {
                 Dictionary<string, object> user = snapshot.ToDictionary();
-                if (password == user["password"])
+
+                if (password == user["password"].ToString())
                 {
-                ViewBag.Login = "True";
-                return Redirect("/Home/Index");
+                    ViewBag.Login = "True";
+                    FormsAuthentication.SetAuthCookie(username, true);
+                    if (user["role"].ToString() == "A")
+                        return Redirect("/Home/Admin");
+                    else
+                        return Redirect("/Home/Index");
                 }
                 else
                 {
-                ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
-                return Redirect("/Security/Login");
+                    ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                    return Redirect("/Security/Login");
                 }
             }
             else
             {
                 ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
                 return Redirect("/Security/Login");
-                }
-            
+            }
+
 
             //if (username == null)
             //{

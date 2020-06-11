@@ -2033,6 +2033,7 @@
     <Content Include="Views\Home\DashboardView.cshtml" />
     <Content Include="Views\Security\Login.cshtml" />
     <Content Include="Views\Home\jsdeneme.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
