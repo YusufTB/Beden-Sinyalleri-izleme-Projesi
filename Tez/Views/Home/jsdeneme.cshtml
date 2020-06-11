@@ -1,4 +1,4 @@
-﻿
+
 @{
     Layout = null;
 }
@@ -66,5 +66,37 @@
 
         };
     </script>
+
+
+
+<label for="cars">Choose a car:</label>
+<select name="cars" id="cars">
+  
+ 
+<script language="javascript" type="text/javascript">
+<!--
+
+var docRef = db.collection("Hasta");
+docRef.get().then(function (doc)
+var docRef = db.collection("Hasta").get();
+
+docRef.forEach(function(doc) {
+       document.write("<option>Username " + doc.user + " is:</option>");
+    });
+});
+
+
+}
+
+//-->
+</script>
+
+</select>
+
+
+
+
+
+
 </body>
 </html>
