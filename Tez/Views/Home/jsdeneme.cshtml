@@ -23,80 +23,61 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
 
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyA-6vQfmode3DRV8YHz-GcMF8roWt3oZ_Y",
-            authDomain: "alzheimertakip-e1d1e.firebaseapp.com",
-            databaseURL: "https://alzheimertakip-e1d1e.firebaseio.com",
-            projectId: "alzheimertakip-e1d1e",
-            storageBucket: "alzheimertakip-e1d1e.appspot.com",
-            messagingSenderId: "1023651702254",
-            appId: "1:1023651702254:web:62f7e12aef680a5e5b5aff"
-        };
+    @*<script>
 
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+            //var form = document.getElementById("jsdeneme");
+            //form.onsubmit = function (e) {
+            //    e.preventDefault();
+            //    var username = form.username.value;
+            //    var password = form.password.value;
 
 
+            //    var docRef = db.collection("Hasta").doc(username);
+            //    docRef.get().then(function (doc) {
+            //        if (doc.exists) {
+            //            if (password = doc.password)
+            //                window.location = 'https://localhost:44365/Home/jsdeneme?username=' + username;
+            //            else
+            //                window.alert("kullanıcı adı veya şifre yanlış");
+            //        } else {
+            //            // doc.data() will be undefined in this case
+            //            window.alert("kullanıcı adı veya şifre yanlış");
+            //        }
+            //    }).catch(function (error) {
+            //        console.log("Error getting document:", error);
+            //    });
 
 
+            //};
 
-        var form = document.getElementById("jsdeneme");
-        form.onsubmit = function (e) {
-            e.preventDefault();
-            var username = form.username.value;
-            var password = form.password.value;
-            
-
-            var docRef = db.collection("Hasta").doc(username);
-            docRef.get().then(function (doc) {
-                if (doc.exists) {
-                    if(password=doc.password)
-                        window.location = 'https://localhost:44365/Home/jsdeneme?username=' + username;
-                    else
-                        window.alert("kullanıcı adı veya şifre yanlış");
-                } else {
-                    // doc.data() will be undefined in this case
-                    window.alert("kullanıcı adı veya şifre yanlış");
-                }
-            }).catch(function (error) {
-                console.log("Error getting document:", error);
-            });
+        </script>*@
+    <label for="cars">Choose a car:</label>
+    <select name="cars" id="cars">
 
 
-        };
-    </script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyA-6vQfmode3DRV8YHz-GcMF8roWt3oZ_Y",
+                authDomain: "alzheimertakip-e1d1e.firebaseapp.com",
+                databaseURL: "https://alzheimertakip-e1d1e.firebaseio.com",
+                projectId: "alzheimertakip-e1d1e",
+                storageBucket: "alzheimertakip-e1d1e.appspot.com",
+                messagingSenderId: "1023651702254",
+                appId: "1:1023651702254:web:62f7e12aef680a5e5b5aff"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            var db = firebase.firestore();
 
 
+            db.collection("Hasta").get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    document.write("<option>Username " + doc.username + " is:</option>");
+                });
 
-<label for="cars">Choose a car:</label>
-<select name="cars" id="cars">
-  
- 
-<script language="javascript" type="text/javascript">
-<!--
+        </script>
 
-var docRef = db.collection("Hasta");
-docRef.get().then(function (doc)
-var docRef = db.collection("Hasta").get();
-
-docRef.forEach(function(doc) {
-       document.write("<option>Username " + doc.user + " is:</option>");
-    });
-});
-
-
-}
-
-//-->
-</script>
-
-</select>
-
-
-
-
-
+    </select>
 
 </body>
 </html>
