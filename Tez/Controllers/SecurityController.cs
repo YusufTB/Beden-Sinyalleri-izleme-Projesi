@@ -62,13 +62,13 @@ namespace Tez.Controllers
                 }
                 else
                 {
-                    ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                    TempData["mesaj"] = "Kullanıcı adı veya şifre yanlış";
                     return Redirect("/Security/Login");
                 }
             }
             else
             {
-                ViewBag.Login = "Kullanıcı adı veya şifre yanlış";
+                TempData["mesaj"] = "Kullanıcı adı veya şifre yanlış";
                 return Redirect("/Security/Login");
             }
 
