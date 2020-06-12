@@ -47,12 +47,12 @@
             e.preventDefault();
             var username = form.username.value;
             var password = form.password.value;
-            
+
 
             var docRef = db.collection("Hasta").doc(username);
             docRef.get().then(function (doc) {
                 if (doc.exists) {
-                    if(password=doc.password)
+                    if (password = doc.password)
                         window.location = 'https://localhost:44365/Home/jsdeneme?username=' + username;
                     else
                         window.alert("kullanıcı adı veya şifre yanlış");
@@ -67,29 +67,38 @@
 
         };
     </script>
-
-
-
-<label for="cars">Choose a car:</label>
-<select name="annen" id="annen">
-  
  
-<script language="javascript" type="text/javascript">
-
-let newOption ;
-selectBox = document.getElementById('annen');
-db.collection("Hasta").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-       newOption = new Option(doc.id, doc.id);
-       selectBox.add(newOption,undefined);
-    });
-});
-
-</script>
-
-</select>
+    <form id="select">
+        <label for="cars">Choose a car:</label>
+        <select name="annen" id="annen">
 
 
+            <script language="javascript" type="text/javascript">
 
+                let newOption;
+                selectBox = document.getElementById('annen');
+                db.collection("Hasta").get().then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        newOption = new Option(doc.id, doc.id);
+                        selectBox.add(newOption, undefined);
+                    });
+                });
+
+            </script>
+
+        </select>
+        <button type="submit" value="gönder">gonder</button>
+    </form>
+    <script>
+        var form = document.getElementById("select");
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            var hastaismi = form.annen.value;
+ 
+            window.location = 'https://localhost:44365/Home/AdminView?hastaismi=' + hastaismi;
+       
+        };
+
+    </script>
 </body>
 </html>

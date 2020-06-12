@@ -2034,6 +2034,7 @@
     <Content Include="Views\Security\Login.cshtml" />
     <Content Include="Views\Home\jsdeneme.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Home\AdminView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

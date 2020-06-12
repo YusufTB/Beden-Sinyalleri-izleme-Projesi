@@ -28,6 +28,23 @@ namespace Tez.Controllers
             else
                 return Redirect("/Home/Index");
         }
+
+        [Authorize]
+        public async System.Threading.Tasks.Task<ActionResult> AdminView(string hastaismi)
+        {
+            var username = System.Web.HttpContext.Current.User.Identity.Name;
+            db = FirestoreDb.Create("alzheimertakip-e1d1e");
+            DocumentReference docRef = db.Collection("Hasta").Document(username);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            Dictionary<string, object> user = snapshot.ToDictionary();
+            if (user["role"].ToString() == "A")
+            {
+                ViewBag.username = hastaismi;
+                return View();
+            }
+            else
+                return Redirect("/Home/Index");
+        }
         public ActionResult Register()
         {
             return View();
