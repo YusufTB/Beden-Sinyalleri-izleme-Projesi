@@ -21,10 +21,6 @@ namespace Tez.Controllers
         }
 
 
-
-
-
-
         [HttpPost]
         public async Task<ActionResult> Login(string username, string password)
 
@@ -55,7 +51,7 @@ namespace Tez.Controllers
                     ViewBag.Login = "True";
                     FormsAuthentication.SetAuthCookie(username, true);
                     if (user["role"].ToString() == "A")
-                        return Redirect("/Home/Admin");
+                        return Redirect("/Admin/Index");
                     else
                         return Redirect("/Home/Index");
                 }

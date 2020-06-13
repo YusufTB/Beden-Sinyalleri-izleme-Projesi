@@ -352,6 +352,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2032,9 +2033,11 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\DashboardView.cshtml" />
     <Content Include="Views\Security\Login.cshtml" />
-    <Content Include="Views\Home\jsdeneme.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Home\AdminView.cshtml" />
+    <Content Include="Views\Admin\AdminView.cshtml" />
+    <Content Include="Views\Admin\AdminDashboardView.cshtml" />
+    <Content Include="Views\Home\UserView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

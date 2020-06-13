@@ -27,6 +27,8 @@
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">Yeni Hasta Oluşturma</div>
             <div class="card-body">
+                <div class="" role="alert" id="yazitahtasi">
+                </div>
                 <form id="form-name" action="/Home/Index">
                     <div class="form-group">
                         <div class="form-row">
@@ -78,12 +80,14 @@
                         <div class="col-md-12">
                             <div class="radio">
                                 Göğüs Ağrısı :
-                                <label class="radio-inline"><input type="radio" value="1" name="gogusAgrisi" checked>Var</label>
+                                <label class="radio-inline"><input type="radio" value="2" name="gogusAgrisi">Sık Sık</label>
+                                <label class="radio-inline"><input type="radio" value="1" name="gogusAgrisi" checked>Arada</label>
                                 <label class="radio-inline"><input type="radio" value="0" name="gogusAgrisi">Yok</label>
                             </div>
                             <div class="radio">
                                 Egzersiz Yaparken Kalp Ağrısı :
-                                <label class="radio-inline"><input type="radio" value="1" name="kalpAgrisi" checked>Var</label>
+                                <label class="radio-inline"><input type="radio" value="2" name="kalpAgrisi">Sık Sık</label>
+                                <label class="radio-inline"><input type="radio" value="1" name="kalpAgrisi" checked>Arada</label>
                                 <label class="radio-inline"><input type="radio" value="0" name="kalpAgrisi">Yok</label>
                             </div>
                             <div class="radio">
@@ -99,7 +103,6 @@
                         </div>
                     </div>
                     <button class="btn btn-info btn-md" type="submit">Kayıt Et</button>
-                    <p id="yazitahtasi"></p>
                     <p id="kalpRitmi"></p>
                 </form>
 
@@ -147,8 +150,9 @@
             var kalpAgrisi = form.kalpAgrisi.value;
             var sigara = form.sigara.value;
             var alkol = form.alkol.value;
+            var role = "U";
 
-            result.innerHTML = "Merhaba " + form.isim.value + form.soyisim.value + form.yas.value + form.optradio.value + form.gogusAgrisi.value + form.kalpAgrisi.value + form.sigara.value + form.alkol.value;
+            result.innerHTML = "Merhaba " + form.isim.value +" "+ form.soyisim.value + "Kaydınız Başarı İle Oluşturuldu!"
             db.collection("Hasta").doc(isim).set({
                 username: username,
                 password: password,
@@ -156,32 +160,15 @@
                 soyisim: soyisim,
                 yas: yas,
                 cinsiyet: cinsiyet,
+                role: role,
                 gogusAgrisi: parseInt(gogusAgrisi, 10),
                 kalpAgrisi: parseInt(kalpAgrisi, 10),
                 sigara: parseInt(sigara, 10),
                 alkol: parseInt(alkol, 10)
             });
             form.reset();
-            window.location = 'https://localhost:44365/Home/Index';
+            result.setAttribute("class", "alert alert-info");
         };
-
-
-
-        let config = {
-            apiKey: "AIzaSyA-6vQfmode3DRV8YHz-GcMF8roWt3oZ_Y",
-            authDomain: "alzheimertakip-e1d1e.firebaseapp.com",
-            projectId: "alzheimertakip-e1d1e",
-            databaseURL: "https://alzheimertakip-e1d1e.firebaseio.com/",
-        };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(config);
-        }
-        var ref = firebase.database().ref("/hastaDurum/Yusuf");
-        var result = document.getElementById("yazitahtasi");
-        ref.on("value", function (snapshot) {
-            result.innerHTML = JSON.stringify(snapshot.val().kalpRitmi, null, 2);
-        });
-
     </script>
 </body>
 </html>
