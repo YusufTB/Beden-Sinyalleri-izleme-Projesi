@@ -1,0 +1,75 @@
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+<table id="example" class="display" width="100%"></table>
+
+<script>
+
+
+
+
+
+function getDatainTable() {
+
+    var firebaseConfig = {
+            apiKey: "AIzaSyA-6vQfmode3DRV8YHz-GcMF8roWt3oZ_Y",
+            authDomain: "alzheimertakip-e1d1e.firebaseapp.com",
+            databaseURL: "https://alzheimertakip-e1d1e.firebaseio.com/",
+            projectId: "alzheimertakip-e1d1e",
+            storageBucket: "alzheimertakip-e1d1e.appspot.com",
+            messagingSenderId: "1023651702254",
+            appId: "1:1023651702254:web:62f7e12aef680a5e5b5aff"
+        };
+
+
+    firebase.initializeApp(firebaseConfig);
+    let db = firebase.firestore();
+    var dataSet = new Array();
+    var degisken = '@ViewBag.user';
+    db.collection("Notes").where("username","==", degisken).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                    dataSet.push([doc.data().username, doc.data().note]);
+
+});
+
+
+    $('#example').DataTable( {
+            data: dataSet,
+            columns: [
+                    { title: "Name" },
+                    { title: "Email" }
+            ]
+    } );
+    });
+}
+
+
+
+
+
+
+$(document).ready(function(){
+
+    getDatainTable();
+    
+
+});
+</script>
+</body>
+</html>
