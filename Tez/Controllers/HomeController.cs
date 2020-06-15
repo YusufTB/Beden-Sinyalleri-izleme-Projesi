@@ -46,6 +46,48 @@ namespace Tez.Controllers
             return View();
         }
 
+
+        public async System.Threading.Tasks.Task<ActionResult> UpdateProfile()
+        {
+            var username = System.Web.HttpContext.Current.User.Identity.Name;
+            db = FirestoreDb.Create("alzheimertakip-e1d1e");
+            DocumentReference docRef = db.Collection("Hasta").Document(username);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            Dictionary<string, object> user = snapshot.ToDictionary();
+                   
+            ViewData["dict"] = user;
+
+
+            return View(ViewData);
+            
+        }
+
+
+
+
+
+
+        public async System.Threading.Tasks.Task<ActionResult> UserNotes()
+        {
+            var username = System.Web.HttpContext.Current.User.Identity.Name;
+            db = FirestoreDb.Create("alzheimertakip-e1d1e");
+            DocumentReference docRef = db.Collection("Hasta").Document(username);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            Dictionary<string, object> user = snapshot.ToDictionary();
+            
+            ViewBag.user = username;
+
+
+
+            return View();
+            
+        }
+
+
+
+
+
+
         public ActionResult Dashboard()
         {
             return View();
